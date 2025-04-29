@@ -1,0 +1,8 @@
+package dao;
+
+public class InvoiceDAO {
+
+	private static ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+	
+	
+}

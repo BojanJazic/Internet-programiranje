@@ -1,0 +1,36 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import dto.Invoice;
+
+public class InvoiceDAO {
+
+	private static ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+	
+	
+	private static final String INSERT_NEW_INVOICE = "INSERT INTO invoice(amount, id_rental) values(?,?)";
+	
+	public static int insertInvoice(Invoice invoice) {
+		Connection connection = null;
+		
+		try {
+			connection = connectionPool.checkOut();
+			try(PreparedStatement pstmt = connection.prepareStatement(INSERT_NEW_INVOICE)){
+				pstmt.setInt(1,invoice.getAmount());
+				pstmt.setInt(2, invoice.getId_rental());
+				
+				try(ResultSet resultSet = pstmt.executeQuery()){
+					
+				}
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+}

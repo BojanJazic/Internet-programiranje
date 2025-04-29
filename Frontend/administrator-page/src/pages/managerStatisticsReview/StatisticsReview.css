@@ -1,0 +1,64 @@
+.statistics-background {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.statistics-background .options-side {
+    width: 20%;
+    height: 100vh;
+    background-color: rgb(236, 168, 119);
+}
+
+.statistics-background .charts {
+    width: 80%;
+    height: 100vh;
+    background-color: rgb(206, 204, 111);
+}
+
+.options-side .buttons-management {
+    display: flex;
+   flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 150px;
+    
+}
+
+.options-side .buttons-management button {
+    width: 80%;
+    background-color: brown;
+    margin-top: 15px;
+    border: 2px solid black;
+    border-radius: 5px;
+    word-wrap: break-word;  /* Prelama tekst u više redova */
+    white-space: normal;    /* Dozvoljava prelamanje teksta */
+    
+}
+
+/* .options-side select {
+    margin-top: 20px;
+    width: 40%;
+    height: 6vh;
+} */
+
+.options-side .select-container {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    width: 80%;
+    gap: 20px;
+    
+}
+
+.select-container select{
+    margin-top: 20px;
+    width: 45%;
+    height: 6vh;
+    overflow: hidden;       /* Skriva tekst koji prelazi granice */
+    white-space: nowrap;    /* Sprečava prelamanje teksta u više redova */
+    text-overflow: ellipsis; /* Dodaje "..." za predugi tekst */
+ }

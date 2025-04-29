@@ -1,0 +1,220 @@
+.manufacturers-background {
+
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(206, 204, 111);
+}
+
+.manufacturers-background .header {
+    height: 10vh;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-style: italic;
+    color: black;
+    padding-top: 25px;
+    margin: 0;
+    text-decoration: underline;
+}
+
+
+
+.manufacturers-corner-element {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px; /* Dodajte padding za bolji izgled */
+}
+
+.manufacturers-corner-element button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.manufacturers-button-text {
+    all: unset; /* Resetuje sve defaultne stilove dugmeta */
+    color: #080710;
+    background: rgb(139, 202, 12);
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    width: calc(100% - 24px);
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    
+}
+
+/* Smanjujemo veličinu slike da bude u skladu sa dizajnom */
+.manufacturers-corner-element  img {
+    width: 30px;
+    height: 30px;
+}
+
+.manufacturers-background .options {
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+    width: 100%;
+}
+
+.manufacturers-background .options-side {
+    /* position: absolute; */
+    height: 90vh;
+    width: 20%;
+    background-color: cadetblue;
+    border-right: 2px solid black;
+}
+
+.options-side label {
+    font-size: 24px;
+    color: black;
+    font-style: italic;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.options-side .buttons-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.buttons-group button {
+    all:unset;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    width: 70%;
+    height: 10vh;
+    background-color: brown;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.buttons-group button:hover {
+    background-color: rgb(206, 204, 111);
+}
+
+.manufacturers-background .options-display {
+    /* position: absolute; */
+    height: 90vh;
+    width: 80%;
+    background-color: rgb(206, 204, 111);
+
+}
+
+
+.manufacturers-table-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Raspored između sadržaja i dugmadi na dnu */
+    /* padding-top: 20px; */
+    margin-top: 0px;
+    color: white;
+    /* background-color: #2b2929; */
+    /* height: 100vh; */
+    /* overflow-y: auto; /* Omogućava skrolovanje ako ima mnogo sadržaja */
+   /* background-color: #f8f9fa; /* Svetla pozadina za sadržaj */
+  /*  padding: 20px; */
+}
+
+.manufacturers-table-content th {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 12px;
+    background-color: rgb(206, 204, 111);
+    color: black;
+    text-decoration: underline;
+    border-bottom: 2px solid black;
+    border-right: 1px solid black;
+}
+
+.manufacturers-table-content tbody {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.manufacturers-table-content td {
+    background-color: rgb(206, 204, 111);
+    color: #030303;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+/*
+    paginacija
+*/
+
+
+.manufacturer-pagination-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 120px;
+}
+
+.manufacturer-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.manufacturer-pagination li {
+    margin: 0 5px;
+}
+
+.manufacturer-pagination li a {
+    padding: 5px 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    background-color: rgb(48, 54, 54);
+    cursor: pointer;
+    color:#000000;
+    text-decoration: none;
+}
+
+.manufacturer-pagination li.active a {
+    background-color: #4ace29;
+    color: rgb(14, 13, 13);
+    border-color: #000000;
+}
+
+.manufacturer-pagination li.disabled a {
+    color: #302c2c;
+    opacity: 0.;
+    cursor: not-allowed;
+}
+
+.items-per-page {
+    padding: 0px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    width: 50px;
+    height: 4vh;
+    margin-top: 16px;
+}

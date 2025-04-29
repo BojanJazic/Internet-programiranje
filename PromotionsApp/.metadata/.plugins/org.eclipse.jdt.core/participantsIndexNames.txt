@@ -1,0 +1,7 @@
+INDEX VERSION 1.134
+C:\Users\Bojan\Internet_programiranje_projekat\PromotionsApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1881028560.index
+\PromotionsApp\src\main\java
+C:\Users\Bojan\Internet_programiranje_projekat\PromotionsApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\532037339.index
+\PromotionsApp\src\main\java
+C:\Users\Bojan\Internet_programiranje_projekat\PromotionsApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2904653267.index
+\PromotionsApp\src\main\java

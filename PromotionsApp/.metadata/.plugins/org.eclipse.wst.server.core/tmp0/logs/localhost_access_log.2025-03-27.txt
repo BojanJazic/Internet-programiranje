@@ -1,0 +1,13 @@
+127.0.0.1 - - [27/Mar/2025:11:10:51 +0100] "GET / HTTP/1.1" 404 709
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:10:53 +0100] "GET /PromotionsApp/ HTTP/1.1" 200 1984
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:10:53 +0100] "GET /favicon.ico HTTP/1.1" 404 720
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:00 +0100] "POST /PromotionsApp/ HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:00 +0100] "GET /PromotionsApp/mainPage.jsp HTTP/1.1" 200 1829
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:02 +0100] "GET /PromotionsApp/promotions.jsp HTTP/1.1" 200 2349
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:06 +0100] "GET /PromotionsApp/posts.jsp HTTP/1.1" 200 2130
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:08 +0100] "GET /PromotionsApp/addPromotion.jsp HTTP/1.1" 200 3786
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:22 +0100] "POST /PromotionsApp/savePromotion.jsp HTTP/1.1" 200 31
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:22 +0100] "GET /PromotionsApp/mainPage.jsp HTTP/1.1" 200 1829
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:23 +0100] "GET /PromotionsApp/promotions.jsp HTTP/1.1" 200 2484
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:50 +0100] "GET /PromotionsApp/mainPage.jsp?logout= HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [27/Mar/2025:11:11:50 +0100] "GET /PromotionsApp/login.jsp HTTP/1.1" 200 1984

@@ -1,0 +1,325 @@
+package dao;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+import org.apache.el.parser.BooleanNode;
+
+import dto.Person;
+
+public class PersonDAO {
+
+	private static ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+	
+	private static final String SQL_SELECT_BY_USERNAME_AND_PASSWORD = "SELECT * FROM person WHERE username=? AND password=?";
+	private static final String SQL_INSERT = "INSERT INTO person (name, surname, username, password, role) VALUES (?,?,?,?,?)";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM person";
+	private static final String SQL_IS_USERNAME_USED = "SELECT name, surname from person WHERE username = ?";
+	private static final String SQL_LOGIN = "SELECT * FROM person p where p.username = ? AND p.password = ? AND p.role = 'CLIENT'";
+	private static final String SQL_UPDATE_PASSWORD = "UPDATE person SET password = ? where username = ?";
+	private static final String SQL_DEACTIVATE_ACCOUNT = "DELETE FROM person where username = ?";
+	private static final String SQL_CHECK_PASSWORD = "SELECT password FROM person WHERE username = ?";
+	private static final String SQL_GET_PERSON_ID = "SELECT id_person from person WHERE username = ?";
+	
+	
+	//potrebno napraviti za cuvanje klijenta, odnosno za registrovanje
+	
+	
+	
+	public static List<Person> getAllPersons() {
+		List<Person> persons = new ArrayList<>();
+		
+		Connection connection = null;
+		ResultSet rSet = null;
+		
+		try {
+			connection = connectionPool.checkOut();
+			PreparedStatement pstm = connection.prepareStatement(SQL_SELECT_ALL);
+			rSet = pstm.executeQuery();
+			
+			while(rSet.next()) {
+				persons.add(new Person(rSet.getInt("id_person"),
+									   rSet.getString("name"),
+									   rSet.getString("surname"),
+									   rSet.getString("username"),
+									   rSet.getString("role")));
+				
+			}
+			
+			pstm.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			connectionPool.checkIn(connection);
+		}
+		
+		return persons;
+		
+	}
+	
+	public static boolean deactivateAccount(String username) {
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try {
+			connection = connectionPool.checkOut();
+			pstmt = connection.prepareStatement(SQL_DEACTIVATE_ACCOUNT);
+			pstmt.setString(1, username);
+			
+			int rowsDeleted = pstmt.executeUpdate();
+			if(rowsDeleted > 0) {
+				result = true;
+			}
+			
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+		
+		return result;
+	}
+	
+	public static boolean checkPassword(String username, String password) {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    boolean result = false;
+	    
+	    try {
+			connection = connectionPool.checkOut();
+			preparedStatement = connection.prepareStatement(SQL_CHECK_PASSWORD);
+			preparedStatement.setString(1, username);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				String userPass = resultSet.getString("password");
+				
+				if(userPass.equals(password))
+					result = true;
+				
+				preparedStatement.close();
+			}
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+	    
+	    return result;
+		
+	}
+	
+	
+	
+	
+	public static boolean updatePassword(String username, String password) {
+		
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = connectionPool.checkOut();
+			pstmt = connection.prepareStatement(SQL_UPDATE_PASSWORD);
+			pstmt.setString(1, password);
+			pstmt.setString(2, username);
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			
+			if(rowsUpdated > 0) {
+				return true;
+			}
+			
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+		
+	
+		
+		return false;
+		
+	}
+	
+	
+	
+	
+	public static int insertPerson(Person person) {
+		
+		if(!isUserNameUsed(person.getUsername())) {
+			return -1;
+		}
+		
+		boolean result = false;
+		
+		Connection connection = null;
+		ResultSet generatedKeys = null;
+		PreparedStatement pstmt = null;
+		Object values[] = {person.getName(), person.getSurname(), person.getUsername(), person.getPassword(), person.getRole()};
+		try {
+			connection = connectionPool.checkOut();
+			pstmt = DAOUtil.prepareStatement(connection, SQL_INSERT, true, values);
+			pstmt.executeUpdate();
+			
+			generatedKeys = pstmt.getGeneratedKeys();
+			if(generatedKeys.next()) {
+				return generatedKeys.getInt(1);
+			}
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			 // Zatvori ResultSet i PreparedStatement
+	        if (generatedKeys != null) {
+	            try {
+	                generatedKeys.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (pstmt != null) {
+	            try {
+	                pstmt.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        connectionPool.checkIn(connection);
+		}
+		
+		//greska
+		return -1;
+		
+	}
+	
+	public static boolean isUserNameUsed(String username) {
+		boolean result = true;
+		Connection connection = null;
+		ResultSet rs = null;
+		Object values[] = {username};
+		
+		
+		try {
+			connection = connectionPool.checkOut();
+			PreparedStatement pstmt = DAOUtil.prepareStatement(connection, SQL_IS_USERNAME_USED, false, values);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return false;
+			}
+			
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+		
+		return result;
+		
+	}
+	
+	
+	//provjera za prijavu
+	
+	public static Person checkLogin(String username, String password) {
+		Person person = null;
+		Connection connection = null;
+		ResultSet rs = null;
+		Object values[] = {username, password};
+		try {
+			connection = connectionPool.checkOut();
+			PreparedStatement pstmt = DAOUtil.prepareStatement(connection, SQL_LOGIN, false, values);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				person = new Person(rs.getInt("id_person"),
+									rs.getString("name"),
+									rs.getString("surname"),
+									rs.getString("username"),
+									rs.getString("password"));
+			}
+			
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+		
+		return person;
+	}
+	
+	public static int getClientId(String username) {
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			connection = connectionPool.checkOut();
+			pstmt = connection.prepareStatement(SQL_GET_PERSON_ID);
+			pstmt.setString(1, username);
+		
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("id_person");
+			}
+			
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			connectionPool.checkIn(connection);
+		}
+		
+	
+		
+		return -1;
+	}
+	
+	
+	
+	
+	
+	
+	//potrebno hesiranje lozinke
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+
+        byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
+
+        byte[] hashedBytes = digest.digest(passwordBytes);
+
+        return Base64.getEncoder().encodeToString(hashedBytes);
+    }
+	
+	
+}

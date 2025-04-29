@@ -1,0 +1,63 @@
+.malfunction-modal-overlay {
+    position: absolute;
+    display: flex;
+    top: 20%;
+    /* left: 68%; */
+    right: 7%;
+    width: 25%;
+    height: 65vh;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    text-wrap: wrap;
+    opacity: 10;
+    border-radius: 10px;
+}
+
+.malfunction-modal-content {
+    background: rgb(155, 185, 97);
+    padding: 20px;
+    width: 100%;
+    height: 65vh;
+    border-radius: 10px;
+    border: 2px solid black;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+}
+
+.malfunction-modal-content h2 {
+    color: black;
+    font-size: 24px;
+}
+
+.malfunction-modal-content label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    width: 100%;
+
+}
+
+.malfunction-modal-content input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.modal-actions button{
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+.modal-actions button:hover {
+    background-color: rgb(79, 182, 47);
+}
+
+

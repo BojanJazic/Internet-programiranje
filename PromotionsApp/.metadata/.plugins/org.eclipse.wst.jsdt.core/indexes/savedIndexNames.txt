@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\Bojan\Internet_programiranje_projekat\PromotionsApp\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+862185290.index
+217215186.index
+1698868727.index
+3878529686.index
+2748100171.index
+3843816153.index

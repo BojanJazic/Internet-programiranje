@@ -1,0 +1,6 @@
+1741436960759	Move 'index.jsp' to 'WebContent'
+1741447104913	Move 'login.css' to 'styles'
+1741447115325	Move 2 resources to 'pages'
+1741447127047	Move 'pages' to 'WEB-INF'
+1741449403057	Delete element
+1741450623416	Rename compilation unit 'ClientBean.java'

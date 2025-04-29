@@ -1,0 +1,251 @@
+.details-background {
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+
+
+.details-corner-element {
+    position: fixed;
+    top: 10px;   
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    padding: 0;
+}
+
+.details-button-text {
+    all: unset; /* Resetuje sve defaultne stilove dugmeta */
+    color: #080710;
+    background: rgb(139, 202, 12);
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    width: calc(100% - 24px);
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    
+}
+
+/* Smanjujemo veličinu slike da bude u skladu sa dizajnom */
+.back-button img {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+.details-background .details-side{
+    position: relative;
+    width: 60%;
+    /* height: 100vh; */
+    background-color: rgb(155, 185, 97);
+    border-right: 2px solid black;
+}
+
+.details-background .malfunctions-side {
+    position: relative;
+    width: 40%;
+    /* height: 100vh; */
+    background-color: rgb(206, 204, 111);
+}
+
+.details-background .header {
+    width: 100%;
+    height: 10vh;
+    border-bottom: 2px solid black;
+    padding-top: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    font-style: italic;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.details-side .footer {
+    width: 100%;
+    height: 10vh;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid black;
+}
+
+.malfunctions-side .footer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10vh;
+    position: absolute;
+    bottom: 0;
+    border-top: 2px solid black;
+    
+}
+
+.footer .details-side-button {
+    
+    background-color: rgb(206, 204, 111);
+    margin-top: 0px;
+    width: 300px;
+    height: 3vh;
+    border: 2px solid black;
+}
+
+.footer .malfunction-side-button {
+    /* position: relative; */
+    background-color: rgb(155, 185, 97);
+    margin-left: 80px;
+    margin-top: 8px;
+    height: 3vh;
+    width: 200px;
+    border: 2px solid black;
+
+}
+
+.details-side-button:hover {
+    background-color: rgb(206, 203, 45);;
+}
+
+.malfunction-side-button:hover {
+    background-color: rgb(143, 197, 34);
+}
+
+
+.details-background .image-space {
+    position: absolute;
+    margin-top: 10vh;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.details-background .informations {
+    width: 60%;
+    height: 80vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* background-color: rgb(181, 141, 219); */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 130px;
+    margin-top: 73px;
+}
+
+
+.informations label {
+    font-size: 20px;
+    margin-top: 5px;
+    font-weight: bold;
+    
+}
+
+.informations input {
+    width: 100%;
+    margin-top: 0;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+textarea {
+    border-radius: 5px;
+    background-color: rgb(155, 185, 97);
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+.table-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Raspored između sadržaja i dugmadi na dnu */
+    /* padding-top: 20px; */
+    margin-top: 0px;
+    color: white;
+    /* background-color: #2b2929; */
+    /* height: 100vh; */
+    /* overflow-y: auto; /* Omogućava skrolovanje ako ima mnogo sadržaja */
+   /* background-color: #f8f9fa; /* Svetla pozadina za sadržaj */
+  /*  padding: 20px; */
+  overflow-x: auto;
+  max-height: 100vh;
+  
+}
+
+.table-content th {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 12px;
+    background-color: rgb(206, 204, 111);
+    color: black;
+    text-decoration: underline;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.table-content tbody {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-content td {
+    background-color: rgb(206, 204, 111);
+    color: #030303;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    border: 2px solid black;
+}
+
+
+/*
+    dio vezan za selektovanje reda kvarova
+*/
+
+.selected-row > td{
+    background-color: #75f144 !important; /* Boja za selektovani red */
+    font-weight: bold; /* Podebljan font da naglasi selekciju */
+    color: rgb(216, 141, 141) !important;
+}
+
+.table-row > td{
+    cursor: pointer;
+    background-color: rgb(206, 204, 111); /* Podrazumijevana boja reda */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* .table-row > td:hover {
+    background-color: #f1ea07; 
+} */

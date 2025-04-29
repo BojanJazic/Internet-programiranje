@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\Bojan\Internet_programiranje_projekat\ClientApp\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2865955459.index
+2328486356.index
+1396280078.index
+2872146382.index
+2754498567.index
+2263560635.index

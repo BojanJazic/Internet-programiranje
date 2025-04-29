@@ -1,0 +1,465 @@
+package controller;
+
+
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import beans.BikeBean;
+import beans.CarBean;
+import beans.ClientBean;
+import beans.InvoiceBean;
+import beans.LocationBean;
+import beans.RentalBean;
+import beans.ScooterBean;
+import beans.VehicleBean;
+import dao.PersonDAO;
+import dao.PromotionDAO;
+import dao.RegistrationDAO;
+import dto.Car;
+import dto.Invoice;
+import dto.Location;
+import dto.Registration;
+import dto.Rental;
+import dto.RentalResponse;
+import dto.Vehicle;
+import service.PasswordHasher;
+
+/**
+ * Servlet implementation class Controller
+ */
+@WebServlet("/Controller")
+public class Controller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Controller() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		String address = "WEB-INF/pages/login.jsp";
+		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("notification", "");
+		
+		if(action == null || action.equals("")) {
+			address = "WEB-INF/pages/login.jsp";
+		}
+			else if(action.equals("logout")) {
+			
+			ClientBean clientBean = (ClientBean) session.getAttribute("clientBean");
+			clientBean.logout();
+			session.invalidate();
+			
+			address = "WEB-INF/pages/login.jsp";
+		} else if(action.equals("register")) {
+			System.out.println("ACTION = " + action);
+			address = "/WEB-INF/pages/registration.jsp";
+		} else if(action != null && action.equals("profileView")) {
+			address = "WEB-INF/pages/profile.jsp";
+		} else if(action != null && action.equals("changePassword")) {
+			address = "WEB-INF/pages/changePassword.jsp";
+		} else if(action != null && action.equals("deactivate")) {
+			address = "WEB-INF/pages/deactivateAccount.jsp";
+		} else if(action != null && action.equals("rentals")) {
+			
+			String username = (String) session.getAttribute("username");
+			RentalBean rentalBean = new RentalBean();
+			List<RentalResponse> rentals = rentalBean.getRentals(username);
+			
+			request.setAttribute("rentals", rentals);
+			
+			
+			address = "WEB-INF/pages/rentals.jsp";
+		} else if(action != null && action.equals("mainPage")) {
+			address = "WEB-INF/pages/mainPage.jsp";
+		} 
+		else if (action != null && (action.equals("rentCar") || action.equals("rentBike") || action.equals("rentScooter"))) {
+			
+			List<Vehicle> vehicles = new ArrayList<>();
+			
+			if(action.equals("rentCar")) {
+				
+				ClientBean clientBean = (ClientBean)session.getAttribute("clientBean"); 
+				String username = (String) session.getAttribute("username");
+				System.out.println("USERNAME: " + username);
+				
+				if(clientBean.checkDriverLicense(username)) {
+					System.out.println("USLOV ISPUNJEN");
+					CarBean carBean = new CarBean();
+				
+					vehicles = carBean.getAllCars();
+					request.setAttribute("vehicles", vehicles);
+					address = "WEB-INF/pages/dataDetection.jsp";
+				}else {
+					System.out.println("USLOV NIJE ISPUNJEN");
+					request.setAttribute("showErrorModal", true);
+		            address = "WEB-INF/pages/mainPage.jsp";
+					
+					
+				}
+				
+				
+			} else if(action.equals("rentBike")) {
+				BikeBean bikeBean = new BikeBean();
+				vehicles = bikeBean.getAllBikes();
+				request.setAttribute("vehicles", vehicles);
+				address = "WEB-INF/pages/dataDetection.jsp";
+			} else if(action.equals("rentScooter")) {
+				ScooterBean scooterBean = new ScooterBean();
+				vehicles = scooterBean.getAllScooters();
+				request.setAttribute("vehicles", vehicles);
+				address = "WEB-INF/pages/dataDetection.jsp";
+			}
+				
+		} 
+		else if(action != null && action.equals("rentalPeriod")) {
+			address = "WEB-INF/pages/rentalPeriod.jsp";
+		}
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String action = request.getParameter("action");
+		String address = "WEB-INF/pages/login.jsp";
+		HttpSession session = request.getSession();
+		
+		if(action != null && action.equals("register")) {
+			 String name = request.getParameter("name");
+		     String surname = request.getParameter("surname");
+		     String username = request.getParameter("username");
+		     String password = request.getParameter("password");
+		     String email = request.getParameter("email");
+		     String phone = request.getParameter("phone");
+		     String avatar = request.getParameter("avatar");
+		     String idCard = request.getParameter("id-card");
+		     String passport = request.getParameter("passport");
+		     String driverLicense = request.getParameter("driver-license");
+
+		     String hashedPassword = PasswordHasher.hashPassword(password);
+		     
+		       
+		     if (name != null && surname != null && username != null && hashedPassword != null) {
+		    	 Registration registration;
+		    	 if(driverLicense.length() == 0) {
+		    		 registration = new Registration(name, surname, username, hashedPassword, email, phone, avatar, idCard, passport, null);
+
+		    	 }else {
+		    		 registration = new Registration(name, surname, username, hashedPassword, email, phone, avatar, idCard, passport, driverLicense);
+		    	 }
+		         ClientBean cBean = new ClientBean();
+		         session.setAttribute("clientBean", cBean);
+		         if(cBean.addClient(registration)) {
+		        	 address = "WEB-INF/pages/login.jsp";
+		         }else {
+		        	 session.setAttribute("notification", "Neuspjesna prijava");
+				}
+		         
+		     }
+		}else if(action != null && action.equals("login")) {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			String hashedPassword = PasswordHasher.hashPassword(password);
+			
+			
+			ClientBean clientBean;
+			if(session.getAttribute("clientBean") != null) {
+				clientBean = (ClientBean) session.getAttribute("clientBean");
+			}else {
+				clientBean = new ClientBean();
+			}
+			
+			if(clientBean.login(username, hashedPassword)) {
+				
+				session.setAttribute("clientBean", clientBean);
+				session.setAttribute("username", username);
+				session.setAttribute("password", hashedPassword);
+				address = "WEB-INF/pages/mainPage.jsp";
+			}else {
+				session.setAttribute("error", "Invalid username or password.");
+				address = "WEB-INF/pages/login.jsp";
+				
+			}
+			
+		} else if(action != null && action.equals("change")) {
+			String password = request.getParameter("password");
+			String repeatedPassword = request.getParameter("repeatedPassword");
+			
+			if (password == null || repeatedPassword == null || !password.equals(repeatedPassword)) {
+	            request.setAttribute("error", "Passwords do not match.");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pages/changePassword.jsp");
+	            dispatcher.forward(request, response);
+	            return;
+	        }
+			
+			String hashedPassword = PasswordHasher.hashPassword(password);
+			
+			boolean result = PersonDAO.updatePassword(session.getAttribute("username").toString(), hashedPassword);
+			
+			if(result) {
+				address = "WEB-INF/pages/profile.jsp";
+			}else {
+				address = "WEB-INF/pages/changePassword.jsp";
+			}
+		} else if(action != null && action.equals("checkPassword")) {
+			String username = (String)session.getAttribute("username");
+			String typedPassword = request.getParameter("password");
+			ClientBean clientBean = (ClientBean)session.getAttribute("clientBean");
+			
+			boolean result = clientBean.checkPassword(username, typedPassword);
+			
+			 // Vrati odgovor u JSON formatu
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+	        response.getWriter().write("{\"success\": " + result + "}");
+	        return;
+			
+		}else if (action != null && action.equals("deactivate")) {
+	        String username = (String) session.getAttribute("username");
+	        ClientBean clientBean = (ClientBean) session.getAttribute("clientBean");
+	        // Obriši korisnika iz baze
+	        boolean success = clientBean.deactivateAccount(username);
+
+	        if (success) {
+	            session.invalidate(); // Uništi sesiju
+	            address = "WEB-INF/pages/login.jsp"; // Preusmjeri na login stranicu
+	        } else {
+	            session.setAttribute("error", "Failed to deactivate account.");
+	            address = "WEB-INF/pages/deactivateAccount.jsp"; // Vrati korisnika na stranicu za deaktivaciju
+	        }
+	    }
+
+		
+		else if(action != null && action.equals("startRent")) {
+		    String vehicleId = request.getParameter("vehicleId");
+		    
+		    System.out.println("SELECTED VEHICLE: " + vehicleId); // Provjera da li je vehicleId prisutan
+		    
+		    if (vehicleId == null || vehicleId.isEmpty()) {
+		        System.out.println("Error: Vehicle ID is missing!"); // Log za grešku
+		        response.getWriter().write("Error: Vehicle ID is missing!");
+		    } else {
+		        VehicleBean vehicleBean = new VehicleBean();
+		        if(vehicleBean.rentVehicle(vehicleId)) {
+		            System.out.println("Vehicle rented successfully!"); // Log za uspjeh
+		            int vehiclePrice = vehicleBean.getVehiclePrice(vehicleId);
+		            System.out.println("CIJENA: " + vehiclePrice);
+		            if(vehiclePrice > 0) {
+		            	session.setAttribute("vehiclePrice", vehiclePrice);
+		            	session.setAttribute("idVehicle", vehicleId);
+		            	System.out.println("Vehicle Price set in session: " + vehiclePrice); // Log za cijenu
+		            } else {
+						session.setAttribute("vehiclePrice", 10);
+						System.out.println("Default Vehicle Price set in session: " + 10); // Log za cijenu
+					}
+		            address = "WEB-INF/pages/rentalPeriod.jsp";
+		        } else {
+		            System.out.println("Failed to rent vehicle!"); // Log za grešku
+		            request.setAttribute("showErrorModal", true);
+		            address = "WEB-INF/pages/mainPage.jsp";
+		        }
+		    }
+		} else if(action != null && action.equals("saveLocation")) {
+			String latitude = request.getParameter("latitude");
+			String longitude = request.getParameter("longitude");
+			
+			session.setAttribute("latitude", latitude);
+			session.setAttribute("longitude", longitude);
+			
+			
+		} else if (action != null && action.equals("finishRental")) {
+			 // Pročitaj podatke iz zahtjeva
+		    StringBuilder jsonBuilder = new StringBuilder();
+		    String line;
+		    try (BufferedReader reader = request.getReader()) {
+		        while ((line = reader.readLine()) != null) {
+		            jsonBuilder.append(line);
+		        }
+		    }
+
+		    String jsonData = jsonBuilder.toString();
+		    System.out.println("Received JSON data: " + jsonData);
+
+		    // Parsiraj JSON podatke
+		    JSONObject rentalData = new JSONObject(jsonData);
+		    String idVehicle = rentalData.getString("id_vehicle");
+		    int rentingDuration = rentalData.getInt("renting_duration");
+		    String pickupLocation = rentalData.getString("pickup_location");
+		    String dropoffLocation = rentalData.getString("dropoff_location");
+		    int amount = rentalData.getInt("amount");
+		    
+		    String[] pickupParts = pickupLocation.split(",");
+		    BigDecimal pickupLatitude = new BigDecimal(pickupParts[0].trim());
+	        BigDecimal pickupLongitude = new BigDecimal(pickupParts[1].trim());
+	        
+	        // Izdvajanje latitude i longitude za dropoffLocation
+	        String[] dropoffParts = dropoffLocation.split(",");
+	        BigDecimal dropoffLatitude = new BigDecimal(dropoffParts[0].trim());
+	        BigDecimal dropoffLongitude = new BigDecimal(dropoffParts[1].trim());
+		    
+	     // Trenutni LocalDateTime
+	        LocalDateTime now = LocalDateTime.now();
+
+	        // Formatirajte LocalDateTime u string bez "T"
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String dateTimeString = now.format(formatter); // "2025-03-17 18:12:56"
+
+	        // Parsirajte string natrag u LocalDateTime
+	        LocalDateTime rentalDateTime = LocalDateTime.parse(dateTimeString, formatter);
+	        System.out.println("Parsiran LocalDateTime: " + rentalDateTime);
+	        
+	      
+	        //ovdje jos provjeriti da li postoji promocija i smanjiti cijenu
+	        
+	        VehicleBean vehicleBean = new VehicleBean();
+	        if(vehicleBean.freeVehicle(idVehicle)) {
+	        	LocationBean locationBean = new LocationBean();
+	        	int pickupLocationId = locationBean.insertLocation(new Location(pickupLatitude, pickupLongitude));
+	        	int dropoffLocationId = locationBean.insertLocation(new Location(dropoffLatitude, dropoffLongitude));
+	        	
+	        	
+	        	
+	        	RentalBean rentalBean = new RentalBean();
+	        	ClientBean clientBean = (ClientBean) session.getAttribute("clientBean");
+	        	System.out.println((String) session.getAttribute("username"));
+	        	int clientId = clientBean.getClientId((String)session.getAttribute("username"));
+	        	
+	        	System.out.println("ID === " + clientId);
+	        	
+	        	if(clientId < 0)
+	        		return;
+	        	
+	        	LocalDate localDate = rentalDateTime.toLocalDate();
+	        	Date sqlDate = Date.valueOf(localDate);
+	        	
+	        	Rental rental = new Rental(clientId, idVehicle, rentalDateTime, rentingDuration, pickupLocationId, dropoffLocationId, amount);
+	        	
+	        	System.out.println("SQL DATE + " + sqlDate);
+	        	
+	        	boolean amountUpdated = false;
+	        	int newAmount = 0;
+	        	if(PromotionDAO.checkPromotion(sqlDate)) {
+	        		newAmount = (int) (amount * (1 - 20.0 / 100)); 
+	        		amountUpdated = true;
+	        		System.out.println("Nova cijena u if = " + newAmount);
+	        		rental.setRentalPrice(newAmount);
+	        	}
+	        	System.out.println("NOVA CIJENA = " + rental.getRentalPrice());
+	        	
+	        	
+	        	int rentalId = rentalBean.insertRental(rental);
+	        	
+	        	if (rentalId > 0) {
+	                System.out.println("USPJESNOO");
+	                
+	                //dodam invoice i prihvatim id_invoice
+	                Invoice invoice = new Invoice();
+	                if(amountUpdated) {
+	                	invoice.setAmount(newAmount);
+	                	invoice.setId_rental(rentalId);
+	                }else {
+	                	invoice.setAmount(amount);
+	                	invoice.setId_rental(rentalId);
+	                }
+	                	
+	                
+	                InvoiceBean invoiceBean = new InvoiceBean();
+	                int invoiceId = invoiceBean.insertInvoice(invoice);
+	                
+	                //kreiranje racuna
+	                
+	                StringBuilder sBuilder = new StringBuilder();
+	                sBuilder.append("Invoice id: " + invoiceId + "\n");
+	                sBuilder.append("Amount: " + invoice.getAmount());
+	                
+	                try {
+	                	System.out.println("Trenutni radni direktorijum: " + System.getProperty("user.dir"));
+	                	 File directory = new File("ClientApp/WebContent/invoices");
+	                	 if (!directory.exists()) {
+	                	    directory.mkdirs(); // Kreirajte sve neophodne direktorijume
+	                	 }
+	                	
+		                Document document = new Document();
+		                PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Bojan\\Internet_programiranje_projekat\\ClientApp\\ClientApp\\WebContent\\invoices\\invoice_" + invoiceId + ".pdf"));
+		                
+		                document.open();
+		                Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+		                
+		                Paragraph paragraph = new Paragraph(sBuilder.toString(), font);
+		                document.add(paragraph);
+
+		                document.close();
+		                
+	                }catch (Exception e) {
+						// TODO: handle exception
+	                	e.printStackTrace();
+					}
+	                
+	                response.setStatus(HttpServletResponse.SC_OK); // Vrati status 200 (OK)
+	                return; // Nemoj koristiti RequestDispatcher
+	            } else {
+	                System.out.println("E MOJ BOJANE");
+	                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // Vrati status 500 (Internal Server Error)
+	                return;
+	            }
+	        	
+
+	        }
+	        
+		}
+		
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
+	}
+
+}

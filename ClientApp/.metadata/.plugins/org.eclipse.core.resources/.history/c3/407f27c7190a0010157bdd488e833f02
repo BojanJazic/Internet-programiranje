@@ -1,0 +1,92 @@
+package dao;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Base64;
+
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
+import dto.Client;
+import dto.Person;
+
+public class ClientDAO {
+
+	
+	
+private static ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+	
+	private static final String SQL_SELECT_BY_USERNAME_AND_PASSWORD = "SELECT * FROM person WHERE username=? AND password=?";
+	private static final String SQL_INSERT = "INSERT INTO client (id_person, email, phone, avatar) VALUES (?,?,?,?)";
+	private static final String SQL_CHECK_IS_BLOCKED = "SELECT * FROM client c where c.id_person = ? AND c.is_blocked = 0";
+
+	
+	
+	
+	//potrebno napraviti za cuvanje klijenta, odnosno za registrovanje
+	
+	public static boolean insertClient(Client client, int id) {
+		
+		boolean result = false;
+		
+		Connection connection = null;
+		ResultSet generatedKeys = null;
+		Object values[] = {id, client.getEmail(), client.getPhone(), client.getAvatar()};
+		try {
+			connection = connectionPool.checkOut();
+			PreparedStatement pstmt = DAOUtil.prepareStatement(connection, SQL_INSERT, result, values);
+			pstmt.executeUpdate();
+			//generatedKeys = pstmt.getGeneratedKeys();
+			if(pstmt.getUpdateCount() > 0) {
+				result = true;
+			}
+			
+			
+			pstmt.close();
+				
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			connectionPool.checkIn(connection);
+		}
+		
+		return result;
+		
+	}
+	
+	public static boolean checkIsClientBlocked(int id) {
+		boolean result = false;
+		
+		Connection connection = null;
+		
+		try {
+			connection = connectionPool.checkOut();
+			try(PreparedStatement pstmt = connection.prepareStatement(SQL_CHECK_IS_BLOCKED)){
+				pstmt.setInt(1, id);
+				
+				try(ResultSet rSet = pstmt.executeQuery()){
+					if(rSet.next()) {
+						result = true;
+					}
+				}
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			if(connection != null) {
+				connectionPool.checkIn(connection);
+			}
+		}
+		
+		return result;
+	}
+	
+	
+
+}

@@ -1,0 +1,61 @@
+.price-defining {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+
+.price-defining .left-panel{
+    width: 20%;
+    background-color: rgb(236, 168, 119);
+    border-right: 1px solid black;
+}
+
+.price-defining .right-panel {
+    width: 80%;
+    background-color: rgb(206, 204, 111);
+}
+
+.corner-element {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.corner-element button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    
+}
+
+.corner-element img {
+    width: 30px;
+    height: 30px;
+}
+
+.price-defining .button-place {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.price-defining .button-place button {
+    width: 80%;
+    background-color: brown;
+    margin-top: 15px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.price-defining .button-place button:hover{
+    background-color: rgb(202, 44, 44);
+}

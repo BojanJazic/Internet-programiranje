@@ -1,0 +1,63 @@
+.price-defining-modal-overlay {
+    position: absolute;
+    display: flex;
+    top: 30%;
+    right: 30%;
+    height: 50vh;
+    width: 30%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    text-wrap: wrap;
+    opacity: 1; /* Ispravljeno: opacity ide od 0 do 1 */
+    border-radius: 10px;
+}
+
+.price-defining-modal-content {
+    background: rgb(206, 204, 111);
+    padding: 20px;
+    width: 100%;
+    height: 100%; /* Koristite 100% visine overlay-a */
+    display: flex; /* Dodano za centriranje */
+    flex-direction: column; /* Dodano za centriranje */
+    justify-content: center; /* Centrirajte vertikalno */
+    align-items: center; /* Centrirajte horizontalno */
+    text-align: center;
+    border: 2px solid black;
+}
+
+.price-defining-modal-content h2 {
+    color: black;
+    font-size: 26px;
+    text-decoration: underline;
+    margin-bottom: 40px;
+}
+
+.price-defining-modal-content label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    width: 100%;
+    margin-top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.price-defining-modal-content input {
+    font-size: 24px;
+    width: 100%; /* Dodano: postavite širinu inputa na 100% */
+    text-align: center; /* Centrirajte tekst unutar inputa */
+    margin-bottom: 20px;
+}
+
+.price-defining-modal-content button {
+    background-color: brown;
+    height: 3vh;
+    margin-top: 10px;
+}
+
+.price-defining-modal-content button:hover {
+    background-color: rgb(202, 44, 44);
+}

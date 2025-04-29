@@ -1,0 +1,21 @@
+.top-corner-element {
+    position: fixed;
+    bottom: 10px;   /* Postavi `top` i `left` ako ga želiš u gornjem lijevom uglu */
+    right: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.bottom-back-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: none;
+    padding: 0;
+}
+
+.bottom-back-button img {
+    width: 100%;
+    height: 100%;
+}

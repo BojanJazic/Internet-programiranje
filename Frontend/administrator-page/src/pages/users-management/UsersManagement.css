@@ -1,0 +1,106 @@
+.users-management {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+
+.users-management .left-panel {
+    width: 20%;
+    background-color: rgb(236, 168, 119);
+    border-right: 1px solid black;
+}
+
+.users-management .right-panel {
+    width: 80%;
+    background-color: rgb(206, 204, 111);
+
+}
+
+
+/* Stilovi za .corner-element */
+.corner-element {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px; /* Dodajte padding za bolji izgled */
+}
+
+/* Stilovi za dugme unutar .corner-element */
+.corner-element button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Stilovi za sliku unutar .corner-element */
+.corner-element img {
+    width: 30px;
+    height: 30px;
+}
+
+
+.users-management .buttons-management {
+   display: flex;
+   flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+    
+}
+
+.users-management .buttons-management button {
+    width: 80%;
+    background-color: brown;
+    margin-top: 15px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.users-management .buttons-management button:hover {
+    background-color: rgb(202, 44, 44);
+}
+
+.buttons-management .option-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+    width: 100%;
+    
+}
+
+.buttons-management .option-buttons button {
+    width: 80%;
+    background-color: rgb(206, 204, 111);
+    margin: 15px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.buttons-management .option-buttons button:hover {
+    background-color: rgb(226, 224, 102);
+}
+
+.table-content td:hover {
+    cursor: pointer;
+}
+
+.selected-row > td{
+    background-color: #75f144 !important; /* Boja za selektovani red */
+    font-weight: bold; /* Podebljan font da naglasi selekciju */
+    color: rgb(216, 141, 141) !important;
+}
+
+.table-row > td{
+    cursor: pointer;
+    background-color: rgb(206, 204, 111); /* Podrazumijevana boja reda */
+    transition: background-color 0.3s ease-in-out;
+}

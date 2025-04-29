@@ -1,0 +1,121 @@
+.rental-background {
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(155, 185, 97);
+}
+
+.rental-background .header {
+    position: relative;
+    height: 10vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.header h2 {
+    color: #080710;
+    font-size: 30px;
+    font-style: italic;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.rental-background .table-space {
+    height: 90vh;
+    background-color: rgb(155, 185, 97);
+}
+
+
+.rental-corner-element {
+    position: fixed;
+    top: 10px;   /* Postavi `top` i `left` ako ga želiš u gornjem lijevom uglu */
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    padding: 0;
+}
+
+.rental-button-text {
+    all: unset; /* Resetuje sve defaultne stilove dugmeta */
+    color: #080710;
+    background: rgb(139, 202, 12);
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    width: calc(100% - 24px);
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    
+}
+
+/* Smanjujemo veličinu slike da bude u skladu sa dizajnom */
+.back-button img {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* Osigurava da sadržaj tabova zauzima preostali prostor */
+.table-space .tab-content {
+    /* flex-grow: 1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Raspored između sadržaja i dugmadi na dnu */
+    padding-top: 0px;
+    margin-top: 0px;
+    color: white;
+    background-color:  rgb(155, 185, 97);
+    height: 90vh;
+    overflow-y: auto; /* Omogućava skrolovanje ako ima mnogo sadržaja
+   /* background-color: #f8f9fa; /* Svetla pozadina za sadržaj */
+  /*  padding: 20px; */
+}
+
+.table-space .tab-content p {
+    color: #9ce63c;
+    font-size: 20px;
+}
+
+.table-space .tab-content .other-tabs {
+    padding-top: 50px;
+}
+
+
+
+.table-space .tab-content th {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 12px;
+    background-color: rgb(155, 185, 97);
+    color: black;
+    text-decoration: underline;
+    border: 2px solid black;
+}
+
+.table-space .tab-content tbody {
+    text-align: center;
+    vertical-align: middle;
+}
+.table-space .tab-content td {
+    background-color: #6fad62;
+    color: #030303;
+    font-size: 16px;
+    font-weight: 500;
+}
+

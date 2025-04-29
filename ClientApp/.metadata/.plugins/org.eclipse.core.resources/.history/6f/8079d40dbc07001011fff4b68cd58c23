@@ -1,0 +1,25 @@
+package dao;
+
+import java.sql.Connection;
+
+import dto.Invoice;
+
+public class InvoiceDAO {
+
+	private static ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+	
+	
+	private static final String INSERT_NEW_INVOICE = "INSERT INTO invoice(amount, id_rental) values(?,?)";
+	
+	public static int insertInvoice(Invoice invoice) {
+		Connection connection = null;
+		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+}

@@ -1,0 +1,11 @@
+package dto;
+
+public class Invoice {
+
+	private int amount;
+	private int id_rental;
+	
+	
+	
+	
+}

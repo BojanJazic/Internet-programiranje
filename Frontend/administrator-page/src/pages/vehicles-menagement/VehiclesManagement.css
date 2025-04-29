@@ -1,0 +1,427 @@
+body{
+    background-color: rgb(21, 20, 24);
+}
+
+h2{
+    padding-top: 15px;
+    color: #9ce63c;
+}
+
+.home-corner-element {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px; /* Dodajte padding za bolji izgled */
+}
+
+.home-corner-element button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.home-button-text {
+    all: unset; /* Resetuje sve defaultne stilove dugmeta */
+    color: #080710;
+    background: rgb(139, 202, 12);
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    width: calc(100% - 24px);
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    
+}
+
+/* Smanjujemo veličinu slike da bude u skladu sa dizajnom */
+.home-corner-element  img {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+form {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(22, 27, 27);
+}
+
+form * {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+
+/* Pomeranje tabova na vrh bez praznog prostora */
+.custom-tabs-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: rgb(79, 22, 236);
+    background-color: #000000;
+    border-color: none;
+}
+
+/* Pomera sve tabove na vrh */
+.nav-tabs .nav-link {
+    margin-top: 0px;
+    color: #9ce63c;
+    font-size: 4vh;
+    background-color: #000000;
+
+}
+
+.nav-tabs .nav-link.active {
+    color: #9ce63c;
+    
+}
+
+
+.nav-tabs {
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Osigurava da sadržaj tabova zauzima preostali prostor */
+.tab-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Raspored između sadržaja i dugmadi na dnu */
+    padding-top: 20px;
+    margin-top: 0px;
+    color: white;
+    background-color: #2b2929;
+    height: 100vh;
+    
+    /* overflow-x: auto;
+    max-height: 100vh; */
+    /* overflow-y: auto; /* Omogućava skrolovanje ako ima mnogo sadržaja */
+   /* background-color: #f8f9fa; /* Svetla pozadina za sadržaj */
+  /*  padding: 20px; */
+}
+
+
+.tab-content p {
+    color: #9ce63c;
+    font-size: 20px;
+}
+
+.tab-content .other-tabs {
+    padding-top: 50px;
+}
+
+
+
+
+.nav-tabs .nav-link:hover{
+    color: rgb(245, 170, 10);
+}
+
+
+.fullscreen-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../../public/compressed.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    /* z-index: -1; */
+    pointer-events: none;
+}
+
+.fullscreen-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1ff342;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 2px 2px 5px gba(0, 0, 0, 0.7);
+    opacity: 0.3;
+}
+
+.bottom-buttons {
+    color: #9ce63c;
+    background-color: rgb(48, 54, 54);
+    width: calc(50% - 20px);
+    height: 5vh;
+    padding: 10px 10px;   /* Povećaj padding za bolji razmak između dugmadi  */
+    margin: 0;
+    margin-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000000;
+    font-size: 20px;
+
+}
+
+.bottom-buttons:hover {
+    background-color: #000000;
+}
+
+.buttons-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; 
+    display: flex;
+    gap: 10px;
+    width: calc(40% - 20px);
+    height: 7vh;
+    padding: 10px 10px;   /* Povećaj padding za bolji razmak između dugmadi  */
+    margin: 0;
+   
+}
+
+.search-menu {
+    position: fixed;
+    border: 2px solid #000000;
+    top: 60px;
+    z-index: 1000;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(43, 41, 41);
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.search-menu input {
+    position: fixed;
+    left: 20px;
+    height: 40px;
+    background-color: #ffffff;
+    width: calc(20% - 20px);
+}
+
+.search-menu button {
+    position: fixed;
+    right: 20px;
+    border: 2px solid #000000;
+    background-color: rgb(48, 54, 54);
+    font-size: 17px;
+    color: #9ce63c;
+    justify-content: center;
+    align-items: center;
+    width: calc(15% - 20px);
+    margin-top: 0px;
+}
+
+.search-menu button:hover {
+    background-color: #000000;
+}
+
+.tab-content th {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 12px;
+    background-color: #2b2929;
+    color: #9ce63c;
+    text-decoration: underline;
+   
+
+}
+
+.tab-content tbody {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tab-content td {
+    background-color: #6fad62;
+    color: #030303;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+/*
+    paginacija
+/
+
+/* Stilovi za paginaciju */
+
+.pagination-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: rgb(48, 54, 54);
+    cursor: pointer;
+    color:#9ce63c;
+    text-decoration: none;
+}
+
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination li.disabled a {
+    color: #9ce63c;
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.items-per-page {
+    padding: 0px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    width: 50px;
+    height: 4vh;
+    margin-top: 16px;
+}
+
+/*
+    vezano za context menu
+*/
+
+/* .context-menu {
+    border-radius: 10px;
+    position: fixed;
+    background-color: rgb(202, 21, 21);
+    width: 15%;
+    height: 7vh;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: flex;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+} */
+
+.context-menu {
+    border-radius: 10px;
+    position: absolute;
+    background-color: rgb(202, 21, 21);
+    width: 15%;
+    height: 15vh;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+.context-menu button {
+    all:unset;
+    color: #9ce63c;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 10px;
+    background-color: rgb(48, 54, 54);
+    margin: 5px 5px 5px 5px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.context-menu button:hover {
+    background-color: #973734;
+}
+
+/*
+modal za potvrdu brisanja
+*/
+
+.modal-overlay {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 45%;
+    right: 45%;
+    width: 15%;
+    height: 10%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    text-wrap: wrap;
+    opacity: 10;
+}
+
+.modal-content {
+    background: rgb(53, 54, 53);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.confirm-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+
+/* Blokiranje interakcije sa tabelom kada je modal otvoren */
+.table-container.disabled {
+    pointer-events: none;
+    opacity: 0.7; /* Opcioni efekat zatamnjene tabele */
+}

@@ -1,0 +1,202 @@
+
+
+.vehicle-background {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 600px;
+    height: 85%;
+    margin: 0 auto;
+    
+}
+
+.vehicle-form {
+    width: 70%;
+    height: 85%;
+    background-color: rgb(57, 61, 60);
+    padding: 0px 0px 0px 0px;
+    
+}
+
+.vehicle-form .title {
+    justify-items: center;
+    height: 10%;
+}
+
+.vehicle-form h2 {
+    padding-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #9ce63c;
+}
+
+
+.vehicle-container {
+    /* display: flex;
+    flex-wrap: wrap; */
+    position: relative;
+    margin-top: 10px;
+    height: calc(82% - 10px);
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(57, 61, 60);
+    justify-items: center;
+}
+
+.vehicles-corner-element {
+    position: absolute;
+    top: 10px;   
+    left: 10px;
+    background-color: rgb(139, 202, 12);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    padding: 0;
+}
+
+.details-button-text {
+    all: unset; /* Resetuje sve defaultne stilove dugmeta */
+    color: #080710;
+    background: rgb(139, 202, 12);
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    width: calc(100% - 24px);
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    
+}
+
+/* Smanjujemo veličinu slike da bude u skladu sa dizajnom */
+.back-button img {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.vehicle-container .row .col-12 {
+    width: 100%;
+}
+
+.vehicle-container .row .col-md-6 {
+    width: 48%;
+}
+
+@media screen and (max-width: 768px) {
+    .col-md-6 {
+        width: 100%
+    }
+
+    .vehicle-form {
+        height: 100vh;
+    }
+
+    .radio-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vehicle-form .radioGroup {
+        width: 90%;
+        flex-direction: column;
+    }
+
+    .vehicle-form .radioGroup label {
+        font-size: 10px;
+    }
+    
+}
+
+
+.vehicle-container button {
+    all: unset;
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #9ce63c;
+    margin-top: 20px;
+    height: 7vh;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 8%;
+}
+
+.vehicle-form .radioGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(52, 54, 56);
+    width: 50%;
+    height: 70%;
+    justify-items: center;
+}
+
+.vehicle-form .radioGroup label {
+    display: flex;
+    margin-top: 0px;   
+    color: #9ce63c;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    /* margin-top: 5px; */
+
+}
+
+.radioButton {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.radioButton input {
+    margin-top: 7px;
+}
+
+.main-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.label .input {
+    width: 30%;
+}
+
+
+select {
+    color: black;
+}
+
+select option {
+    background-color:#9ce63c;
+    color: #000000;
+}
